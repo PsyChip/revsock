@@ -2,7 +2,7 @@ package main
 
 import (
 	"net"
-	"statute/statute"
+	"github.com/PsyChip/revsock/statute"
 )
 
 // AuthContext A Request encapsulates authentication state provided

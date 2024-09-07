@@ -10,9 +10,9 @@ import (
 	"net"
 	"sync"
 
-	"bufferpool/pool"
-	"mux/mux"
-	"statute/statute"
+	"github.com/PsyChip/revsock/bufferpool"
+	"github.com/PsyChip/revsock/mux"
+	"github.com/PsyChip/revsock/statute"
 )
 
 var (

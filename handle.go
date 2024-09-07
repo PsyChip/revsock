@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	"statute/statute"
+	"github.com/PsyChip/revsock/statute"
 )
 
 

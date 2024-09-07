@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net"
 
-	"statute/statute"
+	"github.com/PsyChip/revsock/statute"
 )
 
 // ServeConn is used to serve a single connection.
