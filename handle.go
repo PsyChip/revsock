@@ -12,8 +12,6 @@ import (
 	"github.com/PsyChip/revsock/statute"
 )
 
-
-
 // A Request represents request received by a server
 type Request struct {
 	statute.Request

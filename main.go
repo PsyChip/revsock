@@ -13,15 +13,24 @@ import (
 	"github.com/PsyChip/revsock/bufferpool"
 	"github.com/PsyChip/revsock/mux"
 	"github.com/PsyChip/revsock/statute"
+	   "time"
+//	"fmt"
+  //  "io/ioutil"
+    //"net/http"
 )
 
 var (
 	bufferPool = bufferpool.NewPool(math.MaxUint16)
+	connected = false
 )
 
-
-
 func main() {
+//	const addr = "54.167.58.47:4242"; // this line is hardcoded into application
+//	const pass = "";
+//	log.Println("Connecting to " + addr)
+//	ReverseSocksAgent(addr, pass, false);
+ //  return ;
+	
 	listen := flag.String("listen", ":10443", "Listen address for socks agents address:port")
 	socks := flag.String("socks", "127.0.0.1:1080", "Listen address for socks server address:port")
 	psk := flag.String("psk", "password", "Pre-shared key for encryption and authentication between the agent and server")
@@ -33,10 +42,15 @@ func main() {
 	key := flag.String("key", "", "private key file")
 	flag.Parse()
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
 	if *connect == "" {
 		ReverseSocksServer(*listen, *socks, *psk, *cert, *key, *username, *password)
 	} else {
-		ReverseSocksAgent(*connect, *psk, *connectTLS)
+		for {
+		ReverseSocksAgent(*connect, *psk, *connectTLS);
+		log.Println("-- attempting to reconnect..");
+		time.Sleep(1 * time.Second)
+		}
 	}
 }
 
@@ -53,8 +67,11 @@ func ReverseSocksAgent(serverAddress, psk string, useTLS bool) {
 	}
 
 	if err != nil {
-		log.Fatalln(err.Error())
-	}
+	//	log.Fatalln(err.Error())
+log.Println(err.Error());
+return;	
+}
+
 	log.Println("Connected")
 
 	session := mux.Server(conn, psk)
@@ -90,7 +107,7 @@ func ReverseSocksServer(agentListenAddress, socksListenAddress, psk, certFile, k
 	}
 
 	if len(password) == 0 {
-		log.Println("WARNING: No password configured, anyone will be able to connect to the SOCKS5 server.")
+//		log.Println("WARNING: No password configured, anyone will be able to connect to the SOCKS5 server.")
 	}
 
 	log.Println("Listening for socks agents on " + agentListenAddress)
